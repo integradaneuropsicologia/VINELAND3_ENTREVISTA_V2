@@ -333,7 +333,7 @@
    const AREA_PACIENTE_URL = "https://integradaneuropsicologia.github.io/area-do-paciente-v2/";
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const FREQ5   = ["Nunca/Raramente","Pouca frequência","Regular","Muito frequente", "Sempre/Quase sempre"];
+    const FREQ5   = ["Frequentemente","Às vezes","Nunca","Não se aplica" ];
     const SEVER4  = ["Não","Leve","Moderada","Grave", "Não se aplica"];
     const YESNO   = ["Sim","Não", "Não se aplica"];
     const YNP     = ["Sim","Não","Não sei", "Não se aplica"];
@@ -344,11 +344,10 @@
  **************************************************************/
 const SCALE_SCORE_MAPS = {
   FREQ5: {
-    "Nunca/Raramente": 0,
-    "Pouca frequência":1,
-    "Regular": 2,
-    "Muito frequente": 3,
-     "Sempre/Quase sempre": 4
+    "Frequentemente":2,
+    "Às vezes":1,
+    "Nunca":0,
+    "Não se aplica":2
    
   },
 
@@ -375,1242 +374,1224 @@ const SCALE_SCORE_MAPS = {
     /**************************************************************
  * CONFIGURAÇÃO DAS PERGUNTAS (DINÂMICO)
  **************************************************************/
-const FORM_QUESTIONS = [
+const FORM_QUESTIONS = 
   [
   {
-    key: "COM",
-    label: "Comunicação",
-    items: [
-      {
-        name: "1",
-        type: "radio",
-        text: "Você usa com naturalidade verbos de ação do cotidiano (ex.: beber, comer, trabalhar, dirigir)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "2",
-        type: "radio",
-        text: "Seu vocabulário é amplo nas conversas?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "3",
-        type: "radio",
-        text: "Quando alguém pergunta o que, você entende e responde de forma direta?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "4",
-        type: "radio",
-        text: "Quando alguém pergunta onde, você entende e responde de forma direta?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "5",
-        type: "radio",
-        text: "Quando alguém pergunta quem, você entende e responde de forma direta?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "6",
-        type: "radio",
-        text: "Você forma frases simples com sujeito e verbo com facilidade?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "7",
-        type: "radio",
-        text: "Você usa adjetivos para qualificar pessoas e objetos (ex.: limpo, bonito, grande, alto)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "8",
-        type: "radio",
-        text: "Você usa pronomes possessivos adequadamente (meu, nossa, seu) no dia a dia?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "9",
-        type: "radio",
-        text: "Você usa pronomes e faz concordância de gênero e número corretamente?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "10",
-        type: "radio",
-        text: "Você usa termos espaciais como atrás, na frente e entre de forma adequada?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "11",
-        type: "radio",
-        text: "Você segue instruções com duas etapas relacionadas (ex.: pegar um documento e assiná-lo)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "12",
-        type: "radio",
-        text: "Você segue instruções com duas etapas não relacionadas (ex.: fechar o e-mail e abrir a planilha)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "13",
-        type: "radio",
-        text: "Você executa sequências de três passos (ex.: imprimir, grampear e protocolar)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "14",
-        type: "radio",
-        text: "Você entende e aplica instruções condicionais do tipo se… então (ex.: se o cliente não responder, então ligue)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "15",
-        type: "radio",
-        text: "Quando combinam algo para mais tarde, você lembra de fazer na hora certa sem lembrete?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "16",
-        type: "radio",
-        text: "Você informa seu nome como prefere ser chamado sem hesitar?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "17",
-        type: "radio",
-        text: "Você informa seu nome completo corretamente quando precisa?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "18",
-        type: "radio",
-        text: "Você informa seu endereço completo sem consultar documentos?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "19",
-        type: "radio",
-        text: "Você informa mês e dia do seu aniversário com facilidade?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "20",
-        type: "radio",
-        text: "Você mantém atenção em uma história por pelo menos 15 minutos?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "21",
-        type: "radio",
-        text: "Você assiste a um episódio de série ou programa por cerca de 30 minutos acompanhando a trama?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "22",
-        type: "radio",
-        text: "Você mantém atenção por 60 minutos em um filme ou programa e entende o que acontece?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "23",
-        type: "radio",
-        text: "Em palestras curtas (15 minutos), você se mantém atento e compreende o conteúdo?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "24",
-        type: "radio",
-        text: "Em apresentações de 30 minutos, você se mantém atento e entende o que está sendo dito?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "25",
-        type: "radio",
-        text: "Você consegue contar de forma organizada o enredo de um filme ou de uma história real?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "26",
-        type: "radio",
-        text: "Você expressa opiniões e interpretações próprias sobre acontecimentos e emoções de outras pessoas?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "27",
-        type: "radio",
-        text: "Você relata seu dia com detalhes úteis (quem estava, onde foi, o que fez)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "28",
-        type: "radio",
-        text: "Quando não é compreendido, você reformula com outras palavras até ser entendido?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "29",
-        type: "radio",
-        text: "Você identifica esquerda e direita no próprio corpo sem confundir?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "30",
-        type: "radio",
-        text: "Você segue direções com esquerda e direita em deslocamentos (virar à esquerda, olhar à direita)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "31",
-        type: "radio",
-        text: "Você escreve seu nome completo sem erros?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "32",
-        type: "radio",
-        text: "Sem consultar, você consegue escrever listas com ao menos 10 palavras comuns (ex.: lista de compras)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "33",
-        type: "radio",
-        text: "Você escreve frases e pequenos parágrafos com sentido claro (mesmo que com pequenos erros)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "34",
-        type: "radio",
-        text: "Você escreve e-mails ou textos com cerca de 10 frases, com início, meio e fim?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "35",
-        type: "radio",
-        text: "Você usa ordem alfabética para localizar nomes e encontra palavras em índices ou dicionários?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "36",
-        type: "radio",
-        text: "Você entende instruções visuais (manuais, esquemas, mapas) e consegue segui-las?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "37",
-        type: "radio",
-        text: "Você usa sumário, índice ou busca para achar informações em livros e arquivos digitais?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "38",
-        type: "radio",
-        text: "Você usa internet ou acervo de biblioteca para pesquisar e concluir tarefas ou trabalhos?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "39",
-        type: "radio",
-        text: "Você lê e entende textos simples do dia a dia (bilhetes, mensagens curtas)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "40",
-        type: "radio",
-        text: "Você lê e entende notícias e textos informativos de 1–2 páginas?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "41",
-        type: "radio",
-        text: "Você lê e entende textos mais densos de revista ou capítulos introdutórios?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "42",
-        type: "radio",
-        text: "Você lê e entende textos complexos e técnicos (manuais, relatórios, contratos)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "43",
-        type: "radio",
-        text: "Você faz resumos com pelo menos três frases usando suas próprias palavras?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "44",
-        type: "radio",
-        text: "Você escreve relatórios ou textos de pelo menos uma página com suas próprias palavras?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "45",
-        type: "radio",
-        text: "Antes de enviar, você revisa e corrige seu texto (pontuação, ortografia, gramática), usando corretor quando necessário?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      }
-    ]
+    name: "1",
+    type: "radio",
+    text: "Você usa com naturalidade verbos de ação do cotidiano (ex.: beber, comer, trabalhar, dirigir)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
   },
   {
-    key: "AVD",
-    label: "Atividades de Vida Diária",
-    items: [
-      {
-        name: "46",
-        type: "radio",
-        text: "Você usa naturalmente copos/xícaras de vidro no dia a dia?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "47",
-        type: "radio",
-        text: "Você se alimenta usando colher sem derramar?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "48",
-        type: "radio",
-        text: "Você corta alimentos fáceis com faca de mesa com segurança?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "49",
-        type: "radio",
-        text: "Você urina no vaso sanitário de forma independente?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "50",
-        type: "radio",
-        text: "Você evacua no vaso sanitário de forma independente?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "51",
-        type: "radio",
-        text: "Você usa o banheiro de dia e de noite sem ajuda, higieniza-se, dá descarga e lava as mãos?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "52",
-        type: "radio",
-        text: "Você lava e seca as mãos com sabonete sem precisar de ajuda para abrir/fechar a torneira?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "53",
-        type: "radio",
-        text: "Você toma banho e se seca sozinho(a), sem precisar que alguém ajuste a água?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "54",
-        type: "radio",
-        text: "Você se veste com as roupas no lado correto (frente/verso) sem confundir?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "55",
-        type: "radio",
-        text: "Você calça os sapatos nos pés corretos e amarra cadarços/fecha velcro com segurança?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "56",
-        type: "radio",
-        text: "Você tem cuidado com superfícies/objetos quentes como fogão e forno?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "57",
-        type: "radio",
-        text: "Você tem cuidado ao usar objetos pontiagudos como tesouras e facas?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "58",
-        type: "radio",
-        text: "Você sabe o que fazer em situações perigosas (pedir ajuda, ligar 190, afastar-se do risco)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "59",
-        type: "radio",
-        text: "Você usa com segurança eletrodomésticos e ferramentas (aspirador, ferro, furadeira etc.)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "60",
-        type: "radio",
-        text: "Ao sair, você protege sua casa (tranca portas, fecha janelas, aciona alarme)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "61",
-        type: "radio",
-        text: "Quando derrama algo, você pega o material necessário e limpa adequadamente?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "62",
-        type: "radio",
-        text: "Você limpa ou remove os sapatos sujos antes de entrar em ambientes internos?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "63",
-        type: "radio",
-        text: "Você coloca roupas sujas no cesto/local apropriado?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "64",
-        type: "radio",
-        text: "Você guarda as roupas limpas no lugar certo (gaveta, armário, gancho)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "65",
-        type: "radio",
-        text: "Você usa corretamente produtos de limpeza doméstica?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "66",
-        type: "radio",
-        text: "Em locais públicos movimentados, você mantém-se a uma distância segura do(s) acompanhante(s)/grupo quando combinado?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "67",
-        type: "radio",
-        text: "Você reconhece sinais e símbolos de perigo (proibido, tóxico, alta voltagem)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "68",
-        type: "radio",
-        text: "No trabalho ou lazer, você segue normas de segurança e usa EPI quando necessário?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "69",
-        type: "radio",
-        text: "Você mantém contato com familiares/amigos por chamadas, mensagens ou vídeo com facilidade?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "70",
-        type: "radio",
-        text: "Você sabe discar para serviços de emergência (190/SAMU) e para contatos de emergência?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "71",
-        type: "radio",
-        text: "Você utiliza pelo menos duas tecnologias sociais (e-mail, mensagens, redes sociais, videochamada)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "72",
-        type: "radio",
-        text: "Você escova os dentes corretamente (pasta, escovação adequada e enxágue)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "73",
-        type: "radio",
-        text: "Você costuma escolher opções alimentares saudáveis com regularidade?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "74",
-        type: "radio",
-        text: "Você conhece e comenta os benefícios do exercício físico para a saúde?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "75",
-        type: "radio",
-        text: "Você cobre boca e nariz ao tossir/espirrar?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "76",
-        type: "radio",
-        text: "Quando necessário, você mede sua própria temperatura?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "77",
-        type: "radio",
-        text: "Você entende a função do dinheiro e sua relação com compras/despesas?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "78",
-        type: "radio",
-        text: "Você calcula e paga valores específicos, dando/checando troco exato quando preciso?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "79",
-        type: "radio",
-        text: "Você realiza pequenas compras de forma independente?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "80",
-        type: "radio",
-        text: "Você confere o troco após as compras?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "81",
-        type: "radio",
-        text: "Você guarda dinheiro e cartões com segurança em público (carteira/bolsa/porta-cartões)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "82",
-        type: "radio",
-        text: "Você respeita as regras e leis locais (lixo, animais, propriedade etc.)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "83",
-        type: "radio",
-        text: "Você compreende o direito de votar e como exercê-lo?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "84",
-        type: "radio",
-        text: "Você prepara lanches/refeições simples (ex.: sanduíche, itens de micro-ondas)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "85",
-        type: "radio",
-        text: "Você lava frutas/verduras antes de consumir e cozinha quando necessário?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "86",
-        type: "radio",
-        text: "Você armazena corretamente sobras de comida em recipientes adequados?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "87",
-        type: "radio",
-        text: "Você usa com segurança ao menos dois aparelhos de cozinha simples (torradeira, micro-ondas, abridor elétrico)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "88",
-        type: "radio",
-        text: "Você usa fogão/forno com segurança (liga/desliga, ajusta temperatura)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "89",
-        type: "radio",
-        text: "Você define e cumpre metas de curto prazo (ex.: concluir tarefa até uma data)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "90",
-        type: "radio",
-        text: "Você define e cumpre metas de médio/longo prazo (≥6 meses), como economizar ou melhorar o condicionamento?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      }
-    ]
+    name: "2",
+    type: "radio",
+    text: "Seu vocabulário é amplo nas conversas?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
   },
   {
-    key: "SOC",
-    label: "Socialização",
-    items: [
-      {
-        name: "91",
-        type: "radio",
-        text: "Você participa de interações sociais curtas (≥5 min) com uma ou mais pessoas mantendo engajamento?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "92",
-        type: "radio",
-        text: "Você sustenta conversas/interações por cerca de 30 minutos com um grupo pequeno?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "93",
-        type: "radio",
-        text: "Você se protege afastando-se de pessoas agressivas ou de situações destrutivas?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "94",
-        type: "radio",
-        text: "Você busca ativamente companhia e convida pessoas para socializar?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "95",
-        type: "radio",
-        text: "Você entra em um grupo quando os sinais não verbais indicam abertura (olhares, acenos, espaço livre)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "96",
-        type: "radio",
-        text: "Você evita entrar quando sinais verbais/culturais mostram que não é o momento?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "97",
-        type: "radio",
-        text: "Você nomeia e comunica suas emoções com palavras?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "98",
-        type: "radio",
-        text: "Você reconhece emoções nos outros por pistas verbais e não verbais?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "99",
-        type: "radio",
-        text: "Você toma iniciativa para construir novas amizades com seus pares?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "100",
-        type: "radio",
-        text: "Você mantém amizades estáveis ao longo do tempo?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "101",
-        type: "radio",
-        text: "Você compartilha recursos quando solicitado (materiais, ferramentas, espaços)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "102",
-        type: "radio",
-        text: "Você pede permissão antes de usar algo que é de outra pessoa?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "103",
-        type: "radio",
-        text: "Você faz revezamento/turn-taking quando solicitado em atividades de grupo?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "104",
-        type: "radio",
-        text: "Você segue regras sociais/jogos/esportes sem precisar ser lembrado?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "105",
-        type: "radio",
-        text: "Você pede ajuda quando a demanda excede sua capacidade (TI, burocracia, equipamentos)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "106",
-        type: "radio",
-        text: "Você considera e adota sugestões úteis de outras pessoas?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "107",
-        type: "radio",
-        text: "Você muda de tarefa/ambiente sem irritação desproporcional?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "108",
-        type: "radio",
-        text: "Você expressa incômodo de forma assertiva, sem agressão?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "109",
-        type: "radio",
-        text: "Você regula a raiva quando contrariado (negativas, mudanças de plano)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "110",
-        type: "radio",
-        text: "Você mantém distância interpessoal adequada em contextos sociais?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "111",
-        type: "radio",
-        text: "Você mantém contato visual apropriado à cultura e ao contexto?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "112",
-        type: "radio",
-        text: "Você ajusta volume, ritmo e energia da fala ao ambiente?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "113",
-        type: "radio",
-        text: "Você conversa sem interromper; espera sua vez de falar?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "114",
-        type: "radio",
-        text: "Você ajusta formalidade e postura conforme o grau de intimidade/autoridade do interlocutor?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "115",
-        type: "radio",
-        text: "Você observa e modela comportamentos adequados em contextos novos?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "116",
-        type: "radio",
-        text: "Você evita atrapalhar quem está concentrado (modula ruído/movimentação)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "117",
-        type: "radio",
-        text: "Você transita entre assuntos quando necessário, sem perseverar de modo inadequado?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "118",
-        type: "radio",
-        text: "Você mantém atenção no interlocutor e demonstra escuta ativa?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "119",
-        type: "radio",
-        text: "Você oferece esclarecimentos extras quando percebe que não foi claro?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "120",
-        type: "radio",
-        text: "Você reconhece que preferências e opiniões alheias podem divergir das suas?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "121",
-        type: "radio",
-        text: "Você inicia conversa aproximando-se pelos interesses do outro?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "122",
-        type: "radio",
-        text: "Você se engaja em conversas sobre temas que não são seus favoritos quando é socialmente necessário?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "123",
-        type: "radio",
-        text: "Você participa de atividades sugeridas por amigos/colegas mesmo não sendo as preferidas (ou acompanha observando com respeito)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "124",
-        type: "radio",
-        text: "Você cumpre limites e combinações de tempo/regras para telas e lazer acordados com família/companheiro/trabalho?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "125",
-        type: "radio",
-        text: "Você informa planos e horários relevantes a pessoas de confiança quando sai ou muda a rotina (quando combinado)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "126",
-        type: "radio",
-        text: "Você reconhece riscos de abordagens “boazinhas”/manipuladoras e evita golpes/assédios?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "127",
-        type: "radio",
-        text: "Você age com cautela em situações de risco presencial ou online (convites de desconhecidos, links, eventos com álcool)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "128",
-        type: "radio",
-        text: "Você entende a intenção persuasiva da publicidade e questiona informações enganosas?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "129",
-        type: "radio",
-        text: "Você pensa nas consequências antes de agir e evita impulsividade?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "130",
-        type: "radio",
-        text: "Você resiste a pressões/manipulações e estabelece limites?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "131",
-        type: "radio",
-        text: "Você participa de saídas em grupo com estrutura/organização (excursão, evento corporativo), seguindo orientações?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "132",
-        type: "radio",
-        text: "Você faz saídas com amigos por conta própria, de forma segura e responsável?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "133",
-        type: "radio",
-        text: "Você planeja com antecedência atividades sociais com amigos/colegas?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "134",
-        type: "radio",
-        text: "Você busca informações de agenda/horários para lazer e eventos (sites, apps, telefonemas)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      },
-      {
-        name: "135",
-        type: "radio",
-        text: "Você organiza atividades em grupo que exigem várias etapas (reserva, convites, orçamento, transporte)?",
-        options: FREQ5,
-        scale: "FREQ5",
-        reverse: false,
-        required: true
-      }
-    ]
+    name: "3",
+    type: "radio",
+    text: "Quando alguém pergunta o que, você entende e responde de forma direta?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "4",
+    type: "radio",
+    text: "Quando alguém pergunta onde, você entende e responde de forma direta?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "5",
+    type: "radio",
+    text: "Quando alguém pergunta quem, você entende e responde de forma direta?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "6",
+    type: "radio",
+    text: "Você forma frases simples com sujeito e verbo com facilidade?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "7",
+    type: "radio",
+    text: "Você usa adjetivos para qualificar pessoas e objetos (ex.: limpo, bonito, grande, alto)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "8",
+    type: "radio",
+    text: "Você usa pronomes possessivos adequadamente (meu, nossa, seu) no dia a dia?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "9",
+    type: "radio",
+    text: "Você usa pronomes e faz concordância de gênero e número corretamente?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "10",
+    type: "radio",
+    text: "Você usa termos espaciais como atrás, na frente e entre de forma adequada?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "11",
+    type: "radio",
+    text: "Você segue instruções com duas etapas relacionadas (ex.: pegar um documento e assiná-lo)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "12",
+    type: "radio",
+    text: "Você segue instruções com duas etapas não relacionadas (ex.: fechar o e-mail e abrir a planilha)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "13",
+    type: "radio",
+    text: "Você executa sequências de três passos (ex.: imprimir, grampear e protocolar)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "14",
+    type: "radio",
+    text: "Você entende e aplica instruções condicionais do tipo se… então (ex.: se o cliente não responder, então ligue)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "15",
+    type: "radio",
+    text: "Quando combinam algo para mais tarde, você lembra de fazer na hora certa sem lembrete?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "16",
+    type: "radio",
+    text: "Você informa seu nome como prefere ser chamado sem hesitar?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "17",
+    type: "radio",
+    text: "Você informa seu nome completo corretamente quando precisa?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "18",
+    type: "radio",
+    text: "Você informa seu endereço completo sem consultar documentos?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "19",
+    type: "radio",
+    text: "Você informa mês e dia do seu aniversário com facilidade?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "20",
+    type: "radio",
+    text: "Você mantém atenção em uma história por pelo menos 15 minutos?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "21",
+    type: "radio",
+    text: "Você assiste a um episódio de série ou programa por cerca de 30 minutos acompanhando a trama?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "22",
+    type: "radio",
+    text: "Você mantém atenção por 60 minutos em um filme ou programa e entende o que acontece?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "23",
+    type: "radio",
+    text: "Em palestras curtas (15 minutos), você se mantém atento e compreende o conteúdo?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "24",
+    type: "radio",
+    text: "Em apresentações de 30 minutos, você se mantém atento e entende o que está sendo dito?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "25",
+    type: "radio",
+    text: "Você consegue contar de forma organizada o enredo de um filme ou de uma história real?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "26",
+    type: "radio",
+    text: "Você expressa opiniões e interpretações próprias sobre acontecimentos e emoções de outras pessoas?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "27",
+    type: "radio",
+    text: "Você relata seu dia com detalhes úteis (quem estava, onde foi, o que fez)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "28",
+    type: "radio",
+    text: "Quando não é compreendido, você reformula com outras palavras até ser entendido?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "29",
+    type: "radio",
+    text: "Você identifica esquerda e direita no próprio corpo sem confundir?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "30",
+    type: "radio",
+    text: "Você segue direções com esquerda e direita em deslocamentos (virar à esquerda, olhar à direita)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "31",
+    type: "radio",
+    text: "Você escreve seu nome completo sem erros?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "32",
+    type: "radio",
+    text: "Sem consultar, você consegue escrever listas com ao menos 10 palavras comuns (ex.: lista de compras)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "33",
+    type: "radio",
+    text: "Você escreve frases e pequenos parágrafos com sentido claro (mesmo que com pequenos erros)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "34",
+    type: "radio",
+    text: "Você escreve e-mails ou textos com cerca de 10 frases, com início, meio e fim?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "35",
+    type: "radio",
+    text: "Você usa ordem alfabética para localizar nomes e encontra palavras em índices ou dicionários?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "36",
+    type: "radio",
+    text: "Você entende instruções visuais (manuais, esquemas, mapas) e consegue segui-las?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "37",
+    type: "radio",
+    text: "Você usa sumário, índice ou busca para achar informações em livros e arquivos digitais?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "38",
+    type: "radio",
+    text: "Você usa internet ou acervo de biblioteca para pesquisar e concluir tarefas ou trabalhos?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "39",
+    type: "radio",
+    text: "Você lê e entende textos simples do dia a dia (bilhetes, mensagens curtas)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "40",
+    type: "radio",
+    text: "Você lê e entende notícias e textos informativos de 1–2 páginas?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "41",
+    type: "radio",
+    text: "Você lê e entende textos mais densos de revista ou capítulos introdutórios?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "42",
+    type: "radio",
+    text: "Você lê e entende textos complexos e técnicos (manuais, relatórios, contratos)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "43",
+    type: "radio",
+    text: "Você faz resumos com pelo menos três frases usando suas próprias palavras?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "44",
+    type: "radio",
+    text: "Você escreve relatórios ou textos de pelo menos uma página com suas próprias palavras?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "45",
+    type: "radio",
+    text: "Antes de enviar, você revisa e corrige seu texto (pontuação, ortografia, gramática), usando corretor quando necessário?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "46",
+    type: "radio",
+    text: "Você usa naturalmente copos/xícaras de vidro no dia a dia?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "47",
+    type: "radio",
+    text: "Você se alimenta usando colher sem derramar?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "48",
+    type: "radio",
+    text: "Você corta alimentos fáceis com faca de mesa com segurança?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "49",
+    type: "radio",
+    text: "Você urina no vaso sanitário de forma independente?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "50",
+    type: "radio",
+    text: "Você evacua no vaso sanitário de forma independente?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "51",
+    type: "radio",
+    text: "Você usa o banheiro de dia e de noite sem ajuda, higieniza-se, dá descarga e lava as mãos?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "52",
+    type: "radio",
+    text: "Você lava e seca as mãos com sabonete sem precisar de ajuda para abrir/fechar a torneira?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "53",
+    type: "radio",
+    text: "Você toma banho e se seca sozinho(a), sem precisar que alguém ajuste a água?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "54",
+    type: "radio",
+    text: "Você se veste com as roupas no lado correto (frente/verso) sem confundir?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "55",
+    type: "radio",
+    text: "Você calça os sapatos nos pés corretos e amarra cadarços/fecha velcro com segurança?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "56",
+    type: "radio",
+    text: "Você tem cuidado com superfícies/objetos quentes como fogão e forno?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "57",
+    type: "radio",
+    text: "Você tem cuidado ao usar objetos pontiagudos como tesouras e facas?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "58",
+    type: "radio",
+    text: "Você sabe o que fazer em situações perigosas (pedir ajuda, ligar 190, afastar-se do risco)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "59",
+    type: "radio",
+    text: "Você usa com segurança eletrodomésticos e ferramentas (aspirador, ferro, furadeira etc.)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "60",
+    type: "radio",
+    text: "Ao sair, você protege sua casa (tranca portas, fecha janelas, aciona alarme)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "61",
+    type: "radio",
+    text: "Quando derrama algo, você pega o material necessário e limpa adequadamente?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "62",
+    type: "radio",
+    text: "Você limpa ou remove os sapatos sujos antes de entrar em ambientes internos?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "63",
+    type: "radio",
+    text: "Você coloca roupas sujas no cesto/local apropriado?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "64",
+    type: "radio",
+    text: "Você guarda as roupas limpas no lugar certo (gaveta, armário, gancho)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "65",
+    type: "radio",
+    text: "Você usa corretamente produtos de limpeza doméstica?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "66",
+    type: "radio",
+    text: "Em locais públicos movimentados, você mantém-se a uma distância segura do(s) acompanhante(s)/grupo quando combinado?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "67",
+    type: "radio",
+    text: "Você reconhece sinais e símbolos de perigo (proibido, tóxico, alta voltagem)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "68",
+    type: "radio",
+    text: "No trabalho ou lazer, você segue normas de segurança e usa EPI quando necessário?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "69",
+    type: "radio",
+    text: "Você mantém contato com familiares/amigos por chamadas, mensagens ou vídeo com facilidade?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "70",
+    type: "radio",
+    text: "Você sabe discar para serviços de emergência (190/SAMU) e para contatos de emergência?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "71",
+    type: "radio",
+    text: "Você utiliza pelo menos duas tecnologias sociais (e-mail, mensagens, redes sociais, videochamada)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "72",
+    type: "radio",
+    text: "Você escova os dentes corretamente (pasta, escovação adequada e enxágue)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "73",
+    type: "radio",
+    text: "Você costuma escolher opções alimentares saudáveis com regularidade?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "74",
+    type: "radio",
+    text: "Você conhece e comenta os benefícios do exercício físico para a saúde?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "75",
+    type: "radio",
+    text: "Você cobre boca e nariz ao tossir/espirrar?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "76",
+    type: "radio",
+    text: "Quando necessário, você mede sua própria temperatura?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "77",
+    type: "radio",
+    text: "Você entende a função do dinheiro e sua relação com compras/despesas?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "78",
+    type: "radio",
+    text: "Você calcula e paga valores específicos, dando/checando troco exato quando preciso?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "79",
+    type: "radio",
+    text: "Você realiza pequenas compras de forma independente?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "80",
+    type: "radio",
+    text: "Você confere o troco após as compras?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "81",
+    type: "radio",
+    text: "Você guarda dinheiro e cartões com segurança em público (carteira/bolsa/porta-cartões)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "82",
+    type: "radio",
+    text: "Você respeita as regras e leis locais (lixo, animais, propriedade etc.)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "83",
+    type: "radio",
+    text: "Você compreende o direito de votar e como exercê-lo?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "84",
+    type: "radio",
+    text: "Você prepara lanches/refeições simples (ex.: sanduíche, itens de micro-ondas)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "85",
+    type: "radio",
+    text: "Você lava frutas/verduras antes de consumir e cozinha quando necessário?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "86",
+    type: "radio",
+    text: "Você armazena corretamente sobras de comida em recipientes adequados?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "87",
+    type: "radio",
+    text: "Você usa com segurança ao menos dois aparelhos de cozinha simples (torradeira, micro-ondas, abridor elétrico)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "88",
+    type: "radio",
+    text: "Você usa fogão/forno com segurança (liga/desliga, ajusta temperatura)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "89",
+    type: "radio",
+    text: "Você define e cumpre metas de curto prazo (ex.: concluir tarefa até uma data)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "90",
+    type: "radio",
+    text: "Você define e cumpre metas de médio/longo prazo (≥6 meses), como economizar ou melhorar o condicionamento?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "91",
+    type: "radio",
+    text: "Você participa de interações sociais curtas (≥5 min) com uma ou mais pessoas mantendo engajamento?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "92",
+    type: "radio",
+    text: "Você sustenta conversas/interações por cerca de 30 minutos com um grupo pequeno?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "93",
+    type: "radio",
+    text: "Você se protege afastando-se de pessoas agressivas ou de situações destrutivas?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "94",
+    type: "radio",
+    text: "Você busca ativamente companhia e convida pessoas para socializar?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "95",
+    type: "radio",
+    text: "Você entra em um grupo quando os sinais não verbais indicam abertura (olhares, acenos, espaço livre)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "96",
+    type: "radio",
+    text: "Você evita entrar quando sinais verbais/culturais mostram que não é o momento?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "97",
+    type: "radio",
+    text: "Você nomeia e comunica suas emoções com palavras?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "98",
+    type: "radio",
+    text: "Você reconhece emoções nos outros por pistas verbais e não verbais?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "99",
+    type: "radio",
+    text: "Você toma iniciativa para construir novas amizades com seus pares?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "100",
+    type: "radio",
+    text: "Você mantém amizades estáveis ao longo do tempo?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "101",
+    type: "radio",
+    text: "Você compartilha recursos quando solicitado (materiais, ferramentas, espaços)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "102",
+    type: "radio",
+    text: "Você pede permissão antes de usar algo que é de outra pessoa?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "103",
+    type: "radio",
+    text: "Você faz revezamento/turn-taking quando solicitado em atividades de grupo?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "104",
+    type: "radio",
+    text: "Você segue regras sociais/jogos/esportes sem precisar ser lembrado?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "105",
+    type: "radio",
+    text: "Você pede ajuda quando a demanda excede sua capacidade (TI, burocracia, equipamentos)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "106",
+    type: "radio",
+    text: "Você considera e adota sugestões úteis de outras pessoas?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "107",
+    type: "radio",
+    text: "Você muda de tarefa/ambiente sem irritação desproporcional?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "108",
+    type: "radio",
+    text: "Você expressa incômodo de forma assertiva, sem agressão?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "109",
+    type: "radio",
+    text: "Você regula a raiva quando contrariado (negativas, mudanças de plano)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "110",
+    type: "radio",
+    text: "Você mantém distância interpessoal adequada em contextos sociais?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "111",
+    type: "radio",
+    text: "Você mantém contato visual apropriado à cultura e ao contexto?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "112",
+    type: "radio",
+    text: "Você ajusta volume, ritmo e energia da fala ao ambiente?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "113",
+    type: "radio",
+    text: "Você conversa sem interromper; espera sua vez de falar?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "114",
+    type: "radio",
+    text: "Você ajusta formalidade e postura conforme o grau de intimidade/autoridade do interlocutor?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "115",
+    type: "radio",
+    text: "Você observa e modela comportamentos adequados em contextos novos?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "116",
+    type: "radio",
+    text: "Você evita atrapalhar quem está concentrado (modula ruído/movimentação)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "117",
+    type: "radio",
+    text: "Você transita entre assuntos quando necessário, sem perseverar de modo inadequado?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "118",
+    type: "radio",
+    text: "Você mantém atenção no interlocutor e demonstra escuta ativa?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "119",
+    type: "radio",
+    text: "Você oferece esclarecimentos extras quando percebe que não foi claro?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "120",
+    type: "radio",
+    text: "Você reconhece que preferências e opiniões alheias podem divergir das suas?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "121",
+    type: "radio",
+    text: "Você inicia conversa aproximando-se pelos interesses do outro?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "122",
+    type: "radio",
+    text: "Você se engaja em conversas sobre temas que não são seus favoritos quando é socialmente necessário?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "123",
+    type: "radio",
+    text: "Você participa de atividades sugeridas por amigos/colegas mesmo não sendo as preferidas (ou acompanha observando com respeito)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "124",
+    type: "radio",
+    text: "Você cumpre limites e combinações de tempo/regras para telas e lazer acordados com família/companheiro/trabalho?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "125",
+    type: "radio",
+    text: "Você informa planos e horários relevantes a pessoas de confiança quando sai ou muda a rotina (quando combinado)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "126",
+    type: "radio",
+    text: "Você reconhece riscos de abordagens “boazinhas”/manipuladoras e evita golpes/assédios?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "127",
+    type: "radio",
+    text: "Você age com cautela em situações de risco presencial ou online (convites de desconhecidos, links, eventos com álcool)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "128",
+    type: "radio",
+    text: "Você entende a intenção persuasiva da publicidade e questiona informações enganosas?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "129",
+    type: "radio",
+    text: "Você pensa nas consequências antes de agir e evita impulsividade?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "130",
+    type: "radio",
+    text: "Você resiste a pressões/manipulações e estabelece limites?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "131",
+    type: "radio",
+    text: "Você participa de saídas em grupo com estrutura/organização (excursão, evento corporativo), seguindo orientações?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "132",
+    type: "radio",
+    text: "Você faz saídas com amigos por conta própria, de forma segura e responsável?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "133",
+    type: "radio",
+    text: "Você planeja com antecedência atividades sociais com amigos/colegas?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "134",
+    type: "radio",
+    text: "Você busca informações de agenda/horários para lazer e eventos (sites, apps, telefonemas)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
+  },
+  {
+    name: "135",
+    type: "radio",
+    text: "Você organiza atividades em grupo que exigem várias etapas (reserva, convites, orçamento, transporte)?",
+    options: FREQ5,
+    scale: "FREQ5",
+    reverse: false,
+    required: true
   }
-]
+
   
 ];
 
@@ -2632,19 +2613,36 @@ const respostasLegiveis = buildResultsPerguntasRespostas(FORM_QUESTIONS, rawPayl
 // cálculo de pontuação
 const scoring = buildScoringResult(FORM_QUESTIONS, rawPayload, INDICATORS_CONFIG);
 const resultsPayload = respostasLegiveis;
-const resultsMetaPayload = Object.fromEntries(
-  Object.entries(scoring.indicators).flatMap(([key, indicator]) => {
-    const cfg = INDICATORS_CONFIG[key];
-    const entries = [[key, indicator.sum]];
-    if (Array.isArray(cfg?.cutoffs) && cfg.cutoffs.length) {
-      const rule = interpretByCutoffs(indicator.sum, cfg.cutoffs);
-      if (rule?.text) entries.push([`${key}_interpretacao`, rule.text]);
+const resultsMetaPayload = [];
+let metaOrder = 1;
+
+Object.entries(INDICATORS_CONFIG).forEach(([key, cfg]) => {
+  const indicator = scoring.indicators[key];
+  if (!indicator) return;
+
+  resultsMetaPayload.push({
+    order: metaOrder++,
+    key,
+    label: cfg.label || key,
+    value: indicator.sum,
+    maxPossible: indicator.maxPossible ?? null,
+    answeredCount: indicator.answeredCount ?? 0,
+    ignoredCount: indicator.ignoredCount ?? 0,
+    percent: indicator.percent ?? null
+  });
+
+  if (Array.isArray(cfg?.cutoffs) && cfg.cutoffs.length) {
+    const rule = interpretByCutoffs(indicator.sum, cfg.cutoffs);
+    if (rule?.text) {
+      resultsMetaPayload.push({
+        order: metaOrder++,
+        key: `${key}_interpretacao`,
+        label: `${cfg.label || key} - interpretação`,
+        value: rule.text
+      });
     }
-
-    return entries;
-  })
-);
-
+  }
+});
     // 1) Revalida no patients (não confiar só na validação inicial)
     const { data: patient, error: patientError } = await supabaseClient
       .from("patients")
